@@ -2,11 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Connection } from 'typeorm';
 import { Book } from './Book/book.entity';
 import { BookModule } from './Book/book.module';
 import { ConfigModule } from '@nestjs/config';
-
 
 @Module({
   imports: [
@@ -26,9 +24,4 @@ import { ConfigModule } from '@nestjs/config';
   controllers: [AppController],
   providers: [AppService]
 })
-export class AppModule {
-  constructor(private connection: Connection) {
-    console.log(process.env.POSTGRES_HOST)
-  }
-
-}
+export class AppModule {}
