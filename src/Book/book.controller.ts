@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { BookService } from './book.service';
 import { Book } from './book.entity';
 
@@ -14,6 +14,11 @@ export class BookController {
   @Post()
   createBook(@Body() bookPayload): any {
     return this.bookService.createBook(bookPayload)
+  }
+
+  @Delete(':bookId')
+  deleteBookById(@Param('bookId') bookId: string) {
+    return this.bookService.deleteBookById(bookId)
   }
   
 }

@@ -29,4 +29,12 @@ export class BookService {
       return error
     }
   }
+
+  async deleteBookById(bookId: string) {
+    try {
+      return await this.bookRepository.delete(bookId)
+    } catch (error) {
+      return error
+    }
+  }
  }
