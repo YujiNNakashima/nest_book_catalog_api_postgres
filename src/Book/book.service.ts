@@ -12,11 +12,13 @@ export class BookService {
   ) {}
 
   async getAllBooks(): Promise<Book[]> {
+
     try {
       return await this.bookRepository.find()    
     } catch (error) {
       return error
     }
+    
   }
 
   async createBook(bookPayload: any): Promise<any> {
