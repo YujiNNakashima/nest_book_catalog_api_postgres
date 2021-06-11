@@ -17,7 +17,7 @@ import { UserModule } from './user/user.module';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
       entities: [Book],
-      synchronize: true,
+      // synchronize: true,
     }),
     BookModule,
     UserModule

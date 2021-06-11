@@ -13,9 +13,9 @@ export class BookService {
 
   async getAllBooks(): Promise<Book[]> {
     try {
-      const books = await this.bookRepository.find()  
-      
-    if(books.length === 0) {
+      const books = await this.bookRepository.query(`select * from book`)
+
+      if(books.length === 0) {
         throw new HttpException('livros não encontrados', HttpStatus.NOT_FOUND);
       }
 
@@ -37,7 +37,6 @@ export class BookService {
   }
 
   async createBook(bookPayload: any): Promise<any> {
-
     const bookDto = {...bookPayload, date: new Date()}
 
     try {

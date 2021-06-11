@@ -1,14 +1,16 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
 import {
   validate,
-  validateOrReject,
 } from 'class-validator';
 import { BookService } from './book.service';
 import { Book } from './book.entity';
 import { CheckBodyDTO } from '../book/dto/check-validation-pipe';
 import { ValidationPipe } from '../validator/validator.pipe';
+import { RolesGuard } from '../guards/role.guard';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('books')
+@UseGuards(RolesGuard, AuthGuard)
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
@@ -19,7 +21,6 @@ export class BookController {
 
   @Get(":bookId")
   async getBookById(@Param('bookId', ParseIntPipe) bookId: number): Promise<Book> {
-    console.log(typeof bookId)
     return await this.bookService.getBookById(bookId);
   }
 
