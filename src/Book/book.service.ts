@@ -1,15 +1,22 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { Cron } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Book } from './book.entity';
 
 @Injectable()
 export class BookService {
+  private readonly logger = new Logger(BookService.name);
 
   constructor(
     @InjectRepository(Book)
     private bookRepository: Repository<Book>,
   ) {}
+
+  @Cron('0 30 11 * * 1-5')
+  handleCron() {
+    this.logger.debug('cron roda de segunda a sexta às 11h30 da manhã');
+  }
 
   async getAllBooks(): Promise<Book[]> {
     try {

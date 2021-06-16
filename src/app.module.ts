@@ -6,6 +6,7 @@ import { Book } from './book/book.entity';
 import { BookModule } from './book/book.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
+import { ScheduleModule } from '@nestjs/schedule';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -21,7 +22,8 @@ import { UserModule } from './user/user.module';
     },
     ),
     BookModule,
-    UserModule
+    UserModule,
+    ScheduleModule.forRoot()
   ],
   controllers: [AppController],
   providers: [AppService]
