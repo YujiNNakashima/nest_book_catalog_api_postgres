@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, CacheInterceptor, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import {
   validate,
 } from 'class-validator';
@@ -11,8 +11,18 @@ import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('books')
 @UseGuards(RolesGuard, AuthGuard)
+@UseInterceptors(CacheInterceptor)
 export class BookController {
+  counter = 0
+
   constructor(private readonly bookService: BookService) {}
+  
+  @Get('/counter')
+  getCache(): number | string {
+    const res = this.counter++
+    console.log(this.counter)
+    return JSON.stringify(res)
+  }
 
   @Get()
   async getAllBooks(): Promise<Book[]> {
